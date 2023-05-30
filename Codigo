@@ -1,0 +1,373 @@
+--EXAMEN ADMINISTRACION DE BASES DE DATOS PARCIAL 2 -- 
+
+-----------------Tabla alumnos-----------------
+CREATE TABLE alumnos( --creacion de la tabla alumnosTesoem--
+    id_alum NUMBER(15),     --definicion del campo id_alum para numeros, utilice un tipo de dato NUMBER  --
+    matricula NUMBER(15),   --definicion del campo matricula para numeros, utilice tipo de dato NUMBER --
+    nombre NVARCHAR2(50),    --definicion del campo nombre para caracteres alfanumericos, utilice tipo de dato NVARCHAR2 (50)--
+    ap_Pater NVARCHAR2(50),  --definicion del campo ap_Pater para caracteres alfanumericos,utilice tipo de dato NVARCHAR2 (50)--
+    ap_Mater NVARCHAR2(50),  --definicion del campo ap_Mater para caracteres alfanumericos, utilice tipo de dato NVARCHAR2 (50)--
+    carrera NVARCHAR2(50),  --definicion del campo carrera para caracteres alfanumericos, utilice tipo de dato NVARCHAR2 (50)--
+    grupo NVARCHAR2(15),    --definicion del campo grupo para caracteres alfanumericos, utilice tipo de dato NVARCHAR2 (15)--
+    semestre NUMBER(10),     --definicion del campo semestre para numeros,utilice tipo de dato NUMBER (10)--
+    edificio NVARCHAR2(3),  --definicion del campo edificio para caracteres alfanumericos, utilice tipo de dato NVARCHAR2 (3)--
+    promedio NUMBER(4,2)    --definicion del campo promedio para numeros con cifras decimales, utilice tipo de dato NUMBER (4,2)--
+    );
+
+---------------------Procedimiento Almacenado para insertar datos de los alumnos del tecnologico----------
+       --TODOS LOS CAMPOS DEL SIGUIENTE PROCEDIMIENTO ALMCENADO QUE CUENTAN CUN UNA "a_" al principio del campo, tiene el significado de "alumno"--
+CREATE OR REPLACE PROCEDURE      -- reemplazo en caso de que exista del procedimiento almacenado--
+    (a_id in number default 0 || null,       --Declaracion del parametro de entrada con un valor predeterminado de 0  y declara que el campo puede ser nulo--
+    a_Matricula in number default  0  ,       --Declaracion del parametro de entrada con un valor predeterminado de 0--
+    a_Nombre in varchar2 default 'Nombre'  ,     --Declaracion del parametro de entrada con una cadena prederteminada de 'Nombre'--
+    a_Ap_Pater in varchar2 default 'Apellido Paterno' ,   --Declaracion del parametro de entrada con una cadena prederteminada de 'Apellido Paterno'--
+    a_Ap_Mater in varchar2 default 'Apellido Materno' || null, --Declaracion del parametro de entrada con una cadena prederteminada de 'Apellido Materno' en donde declara que el campo puede ser nulo--
+    a_Carrera in varchar2 default 'Carrera' ,     --Declaracion del parametro de entrada con una cadena prederteminada de 'Carrera'--
+    a_Grupo in varchar2 default 'Grupo' ,         --Declaracion del parametro de entrada con una cadena prederteminada de 'Grupo'--
+    a_Semestre in number DEFAULT 0 ,		--Declaracion del parametro de entrada con un valor predeterminado de 0--
+    a_Edificio in varchar2 default '#' ,		--Declaracion del parametro de entrada con una cadena prederteminada de '#'--	
+    a_Promedio in number default 0 ) 
+as
+begin		--Inicio del bloque de instrucciones a realizar--
+    insert into alumnos values (a_id, a_Matricula, a_Nombre, a_Ap_Pater, a_Ap_Mater, a_Carrera, a_Grupo, a_Semestre, a_Edificio, a_Promedio);	--Insercion de datos en la tabla con valores definidos en el PA--
+end;		--Fin del bloque de instrucciones a realizar--
+
+----------Ejecucion del bloque de instrucciones paInsertAlumnos------------
+EXECUTE pa_insert_Alum; 
+EXECUTE pa_insert_Alum (1, 206020008, 'Evelin Lizet', 'Cruz', 'Martinez', 'Sistemas', '6S12', 6, 'B', 92.7); --Ejecucion del bloque de instrucciones con valores propuestos por el usuario--
+
+SELECT * FROM alumnos;	--Seleccion de la tabla --
+
+
+--------------Tabla de Sistemas TABLA 1 DE LAS CARRERAS --------------
+CREATE TABLE sistemas( --creacion de la tabla --
+    id NUMBER(6), 	--definicion del campo id para numeros --
+    matricula NUMBER(20),	--definicion del campo matricula para numeros --
+    nombre NVARCHAR2(50),	--definicion del campo nombre con caracteres alfanumericos--
+    apellido NVARCHAR2(100), --definicion del campo matricula para caracteres alfanumericos--
+    grupo NVARCHAR2(15),    --definicion del campo grupo para caracteres alfanumericos--
+    semestre NUMBER(5),     --definicion del campo semestre para numeros --
+    edificio NVARCHAR2(5)   --definicion del campo edificio para caracteres alfanumericos--
+);
+
+
+--------------Procedimiento Almacenado para insertar datos de los alumnos de sistemas------------
+        --TODOS LOS CAMPOS DEL SIGUIENTE PROCEDIMIENTO ALMCENADO QUE CUENTAN CUN UNA "a" al principio del campo, tiene el significado de "alumno" y una "SC" al final tiene el significado de "Sistemas Computacionales"--
+CREATE OR REPLACE PROCEDURE pa_insert_alumnos_sistemas_c
+    (a_id_SC in number default 0 || null,      --Declaracion del parametro de entrada con un valor predeterminado de 0  y en donde declara que el campo puede ser nulo--
+    a_Matricula_SC in number default  0  ,     --Declaracion del parametro de entrada con un valor predeterminado de 0--
+    a_Nombre_SC in varchar2 default 'Nombre' ,      --Declaracion del parametro de entrada con una cadena prederteminada de 'Nombre'-- 
+    a_Apellido_SC in varchar2 default 'Apellidos' , --Declaracion del parametro de entrada con una cadena prederteminada de 'Apellidos'--
+    a_Grupo_SC in varchar2 default 'Grupo' ,       --Declaracion del parametro de entrada con una cadena prederteminada de 'Grupo'--
+    a_Semestre_SC in number default  0,     --Declaracion del parametro de entrada con un valor predeterminado de 0--
+    a_Edificio_SC in varchar2 default '#')  --Declaracion del parametro de entrada con una cadena prederteminada de '#'--
+as
+begin   --Inicio del bloque de instrucciones a realizar--
+    insert into sistemas values (a_id_SC, a_Matricula_SC, a_Nombre_SC, a_Apellido_SC, a_GrupoSC, a_Semestre_SA, a_Edificio_SC); --Insercion de datos en la tabla sistemas con valores definidos en el PA--
+end;    --Fin del bloque de instrucciones a realizar--
+
+ --------------Ejecucion del bloque de instrucciones ------------------
+EXECUTE pa_insert_alumnos_sistemas_c;   
+EXECUTE pa_insert_alumnos_sistemas_c (1, 206020008, 'Evelin Lizet', 'Cruz Martinez', '6S12',6,'B'); --Ejecucion del bloque de instrucciones SISTEMAS con valores propuestos por el usuario--
+
+SELECT * FROM sistemas; --Seleccion de la tabla Sistemas--
+
+
+----------Tabla Gastronomia TABLA 2 DE LAS CARRERAS----------
+CREATE TABLE gastro( --creacion de la tabla sistemas--
+    id NUMBER(10), 	--definicion del campo para numeros --
+    matricula NUMBER(15),	--definicion del campo para numeros --
+    nombre NVARCHAR2(50),	--definicion del campo para caracteres alfanumericos--
+    apellido NVARCHAR2(100), --definicion del campo para caracteres alfanumericos--
+    grupo NVARCHAR2(10),    --definicion del campo para caracteres alfanumericos--
+    semestre NUMBER(5),     --definicion del campo para numeros --
+    edificio NVARCHAR2(5)   --definicion del campo para caracteres alfanumericos--
+);
+
+
+---------------Procedimiento Almacenado para insertar datos de los alumnos de gastronomia----------------
+        --TODOS LOS CAMPOS DEL SIGUIENTE PROCEDIMIENTO ALMCENADO QUE CUENTAN CUN UNA "a" al principio del campo, tiene el significado de "alumno" y una "G" al final tiene el significado de "Gastronomia"--
+CREATE OR REPLACE PROCEDURE pa_insert_Alumnos_Gastronomia
+    (a_id_G in number default 0 || null,      --Declaracion del parametro de entrada con un valor predeterminado de 0 donde declara que el campo puede ser nulo--
+    a_Matricula_G in number default  0  ,     --Declaracion del parametro de entrada con un valor predeterminado de 0--
+    a_Nombre_G in varchar2 default 'Nombre' ,      --Declaracion del parametro de entrada con una cadena prederteminada de 'Nombre'-- 
+    a_Apellido_G in varchar2 default 'Apellidos' , --Declaracion del parametro de entrada con una cadena prederteminada de 'Apellidos'--
+    a_Grupo_G in varchar2 default 'Grupo' ,       --Declaracion del parametro de entrada con una cadena prederteminada de 'Grupo'--
+    a_Semestre_G in number default  0,     --Declaracion del parametro de entrada con un valor predeterminado de 0--
+    a_Edificio_G in varchar2 default '#')  --Declaracion del parametro de entrada con una cadena prederteminada de '#'--
+as
+begin   --Inicio del bloque de instrucciones a realizar--
+    insert into gastro values (a_id_G, a_Matricula_G, a_Nombre_G, a_Apellido_G, a_Grupo_G, a_Semestre_G, a_Edificio_G); --Insercion de datos en la tabla gastronomia con valores definidos en el PA--
+end;    --Fin del bloque de instrucciones a realizar--
+
+
+-----Ejecucion del bloque de instrucciones -----
+EXECUTE pa_insert_Alumnos_Gastronomia;    
+EXECUTE pa_insert_Alumnos_Gastronomia (1, 200020210, 'Kevin Aron', 'Juarez Juarez','6G11', 6, 'D'); --Ejecucion del bloque de instrucciones paInsertAlumnosSGastronomia con valores propuestos por el usuario--
+
+SELECT * FROM gastro;   --Seleccion de la tabla gastronomia--
+
+
+-----------Tabla Contaduria TABLA 3 DE LAS CARRRERAS--------
+CREATE TABLE contaduria( --creacion de la tabla conaduria--
+    id NUMBER(10), 	--definicion del campo para numeros --
+    matricula NUMBER(15),	--definicion del campo para numeros --
+    nombre NVARCHAR2(50),	--definicion del campo para caracteres alfanumericos--
+    apellido NVARCHAR2(100), --definicion del campo para caracteres alfanumericos--
+    grupo NVARCHAR2(10),    --definicion del campo para caracteres alfanumericos--
+    semestre NUMBER(5),     --definicion del campo para numeros --
+    edificio NVARCHAR2(5)   --definicion del campo para caracteres alfanumericos--
+);
+
+
+------------Procedimiento Almacenado para insertar datos de los alumnos de Contador publico---------
+         --TODOS LOS CAMPOS DEL SIGUIENTE PROCEDIMIENTO ALMCENADO QUE CUENTAN CUN UNA "a" al principio del campo, tiene el significado de "alumno" y una "C" al final tiene el significado de "Contaduria"--
+CREATE OR REPLACE PROCEDURE pa_insert_Alumnos_Contaduria
+    (a_id_C in number default 0 || null,      --Declaracion del parametro de entrada con un valor predeterminado de 0 donde declara que el campo puede ser nulo--
+    a_Matricula_C in number default  0  ,     --Declaracion del parametro de entrada con un valor predeterminado de 0--
+    a_Nombre_C in varchar2 default 'Nombre' ,      --Declaracion del parametro de entrada con una cadena prederteminada de 'Nombre'-- 
+    a_Apellido_C in varchar2 default 'Apellidos' , --Declaracion del parametro de entrada con una cadena prederteminada de 'Apellidos'--
+    a_Grupo_C in varchar2 default 'Grupo' ,       --Declaracion del parametro de entrada con una cadena prederteminada de 'Grupo'--
+    a_Semestre_C in number default  0,     --Declaracion del parametro de entrada con un valor predeterminado de 0--
+    a_Edificio_C in varchar2 default '#')  --Declaracion del parametro de entrada con una cadena prederteminada de '#'--
+as
+begin   --Inicio del bloque de instrucciones a realizar--
+    insert into contaduria values (a_id_C, a_Matricula_C, a_Nombre_C, a_Apellido_C, a_Grupo_C, a_Semestre_C, a_Edificio_C); --Insercion de datos en la tabla contaduria con valores definidos en el PA--
+end;    --Fin del bloque de instrucciones a realizar--
+
+------------Ejecucion del bloque de instrucciones--------------
+EXECUTE pa_insert_Alumnos_Contaduria;  
+EXECUTE pa_insert_Alumnos_Contaduria (1, 201020069, 'Saul', 'Lopez Garcia', '6C21', 6, 'I'); --Ejecucion del bloque de instrucciones --Ejecucion del bloque de instrucciones paInsertAlumnosContaduria con valores propuestos por el usuario-- con valores propuestos por el usuario--
+
+SELECT * FROM contaduria;     --Seleccion de la tabla contaduria--
+
+
+--------------------Tabla Ambiental TABLA 4 DE LAS CARRERAS-----------------------
+CREATE TABLE ambiental( --creacion de la tabla conaduria--
+     id NUMBER(10), 	--definicion del campo para numeros --
+    matricula NUMBER(15),	--definicion del campo para numeros --
+    nombre NVARCHAR2(50),	--definicion del campo para caracteres alfanumericos--
+    apellido NVARCHAR2(100), --definicion del campo para caracteres alfanumericos--
+    grupo NVARCHAR2(10),    --definicion del campo para caracteres alfanumericos--
+    semestre NUMBER(5),     --definicion del campo para numeros --
+    edificio NVARCHAR2(5)   --definicion del campo para caracteres alfanumericos--
+);
+
+------------Procedimiento Almacenado para insertar datos de los alumnos de Ambiental------
+         --TODOS LOS CAMPOS DEL SIGUIENTE PROCEDIMIENTO ALMCENADO QUE CUENTAN CUN UNA "a" al principio del campo, tiene el significado de "alumno" y una "A" al final que significa "Ambiental"   
+CREATE OR REPLACE PROCEDURE pa_insert_Alumnos_Ambiental
+    (a_id_A in number default 0 || null,      --Declaracion del parametro de entrada con un valor predeterminado de 0  y donde declara que el campo puede ser nulo--
+    a_Matricula_A in number default  0  ,     --Declaracion del parametro de entrada con un valor predeterminado de 0--
+    a_Nombre_A in varchar2 default 'Nombre' ,      --Declaracion del parametro de entrada con una cadena prederteminada de 'Nombre'-- 
+    a_Apellido_A in varchar2 default 'Apellidos' , --Declaracion del parametro de entrada con una cadena prederteminada de 'Apellidos'--
+    a_Grupo_A in varchar2 default 'Grupo' ,       --Declaracion del parametro de entrada con una cadena prederteminada de 'Grupo'--
+    a_Semestre_A in number default  0,     --Declaracion del parametro de entrada con un valor predeterminado de 0--
+    a_Edificio_A in varchar2 default '#')  --Declaracion del parametro de entrada con una cadena prederteminada de '#'--
+as
+begin   --Inicio del bloque de instrucciones a realizar--
+    insert into contaduria values (a_id_C, a_Matricula_C, a_Nombre_C, a_Apellido_C, a_Grupo_C, a_Semestre_C, a_Edificio_C); --Insercion de datos en la tabla ambiental con valores definidos en el PA--
+end;    --Fin del bloque de instrucciones a realizar--
+
+---------Ejecucion del bloque de instrucciones-------
+EXECUTE pa_insert_Alumnos_Ambiental;   
+EXECUTE pa_insert_Alumnos_Ambiental (3, 214020146, 'Kate Leslie', 'Cruz Chavez','8A12', 8 ,'H');   --Ejecucion del bloque de instrucciones paInsertAlumnosAmbiental con valores propuestos por el usuario--
+
+SELECT * FROM ambiental;    --Seleccion de la tabla--
+
+--Tabla Administracion TABLA 5 DE LAS CARRERAS--
+CREATE TABLE administracion(
+    id NUMBER(10), 	--definicion del campo para numeros --
+    matricula NUMBER(15),	--definicion del campo para numeros --
+    nombre NVARCHAR2(50),	--definicion del campo para caracteres alfanumericos--
+    apellido NVARCHAR2(100), --definicion del campo para caracteres alfanumericos--
+    grupo NVARCHAR2(10),    --definicion del campo para caracteres alfanumericos--
+    semestre NUMBER(5),     --definicion del campo para numeros --
+    edificio NVARCHAR2(5)   --definicion del campo para caracteres alfanumericos--
+);
+
+        --Procedimiento Almacenado para insertar datos de los alumnos de Administracion--
+CREATE OR REPLACE PROCEDURE pa_insert_Alumnos_Administracion
+    (a_id_AD in number default 0 || null,      --Declaracion del parametro de entrada con un valor predeterminado de 0  y donde declara que el campo puede ser nulo--
+    a_Matricula_AD in number default  0  ,     --Declaracion del parametro de entrada con un valor predeterminado de 0--
+    a_Nombre_AD in varchar2 default 'Nombre' ,      --Declaracion del parametro de entrada con una cadena prederteminada de 'Nombre'-- 
+    a_Apellido_AD in varchar2 default 'Apellidos' , --Declaracion del parametro de entrada con una cadena prederteminada de 'Apellidos'--
+    a_Grupo_AD in varchar2 default 'Grupo' ,       --Declaracion del parametro de entrada con una cadena prederteminada de 'Grupo'--
+    a_Semestre_AD in number default  0,     --Declaracion del parametro de entrada con un valor predeterminado de 0--
+    a_Edificio_AD in varchar2 default '#')  --Declaracion del parametro de entrada con una cadena prederteminada de '#'--
+as
+begin
+    insert into administracion values (a_id_AD, a_Matricula_AD, a_Nombre_AD, a_Apellido_AD, a_Grupo_AD,a_Semestre_AD, a_Edificio_AD);
+end;
+
+EXECUTE pa_insert_Alumnos_Administracion;
+EXECUTE pa_insert_Alumnos_Administracion (1, 202020101, 'Hector Enrique', 'Megana Quezada','6AD12',6,'D');
+
+SELECT * FROM administracion;
+
+-----------Tabla Automotriz TABLA 6 DE LAS CARRERAS-----------
+CREATE TABLE automotriz(
+    id NUMBER(10), 	--definicion del campo para numeros --
+    matricula NUMBER(15),	--definicion del campo para numeros --
+    nombre NVARCHAR2(50),	--definicion del campo para caracteres alfanumericos--
+    apellido NVARCHAR2(100), --definicion del campo para caracteres alfanumericos--
+    grupo NVARCHAR2(10),    --definicion del campo para caracteres alfanumericos--
+    semestre NUMBER(5),     --definicion del campo para numeros --
+    edificio NVARCHAR2(5)   --definicion del campo para caracteres alfanumericos--
+);
+
+----------Procedimiento Almacenado para insertar datos de los alumnos de Automotriz----------
+CREATE OR REPLACE PROCEDURE pa_insert_Alumnos_Automotriz
+    (a_id_Au in number default 0 || null, 
+    a_Matricula_Au in number default  0  , 
+    a_Nombre_Au in varchar2 default 'Nombre'  , 
+    a_Apellido_Au in varchar2 default 'Apellidos' ,
+    a_Grupo_Au in varchar2 default 'Grupo' ,
+    a_Semestre_Au in number default 0,
+    a_Edificio_Au in varchar2 default '#') 
+as
+begin
+    insert into automotriz values (a_id_Au, a_Matricula_Au, a_Nombre_Au, a_Apellido_Au, a_Grupo_Au,a_Semestre_Au, a_Edificio_Au);
+end;
+
+EXECUTE pa_insert_Alumnos_Automotriz;
+EXECUTE pa_insert_Alumnos_Automotriz (1, 0000000000, 'vesrvdfv', 'abfdgnbad', '4fvfzsgb',4, 'F');
+
+SELECT * FROM automotriz;
+
+-------------------Tabla TICs TABLA 7 DE LAS CARRERAS----------------
+CREATE TABLE tics(
+    id NUMBER(10), 	--definicion del campo para numeros --
+    matricula NUMBER(15),	--definicion del campo para numeros --
+    nombre NVARCHAR2(50),	--definicion del campo para caracteres alfanumericos--
+    apellido NVARCHAR2(100), --definicion del campo para caracteres alfanumericos--
+    grupo NVARCHAR2(10),    --definicion del campo para caracteres alfanumericos--
+    semestre NUMBER(5),     --definicion del campo para numeros --
+    edificio NVARCHAR2(5)   --definicion del campo para caracteres alfanumericos--
+);
+
+        --Procedimiento Almacenado para insertar datos de los alumnos de Tics--
+CREATE OR REPLACE PROCEDURE pa_insert_Alumnos_Tics
+    (a_id_T in number default 0 || null, 
+    a_Matricula_T in number default  0  , 
+    a_Nombre_T in varchar2 default 'Nombre'  , 
+    a_Apellido_T in varchar2 default 'Apellidos' ,
+    a_Grupo_T in varchar2 default 'Grupo' ,
+    a_Semestre_T in number default 0,
+    a_Edificio_T in varchar2 default '#') 
+as
+begin
+    insert into tics values (a_id_T, a_Matricula_T, a_Nombre_T, a_Apellido_T, a_Grupo_T,a_Semestre_T, a_Edificio_T);
+end;
+
+EXECUTE pa_insert_Alumnos_Tics;
+EXECUTE pa_insert_Alumnos_Tics (1, 0000000000, 'rqetbdvf', 'adfvdab', '5q3ga',2, 'A');
+
+SELECT * FROM tics;
+
+--Tabla Industrial TABLA 8 DE LAS CARRERAS--
+CREATE TABLE industrial(
+    id NUMBER(10), 	--definicion del campo para numeros --
+    matricula NUMBER(15),	--definicion del campo para numeros --
+    nombre NVARCHAR2(50),	--definicion del campo para caracteres alfanumericos--
+    apellido NVARCHAR2(100), --definicion del campo para caracteres alfanumericos--
+    grupo NVARCHAR2(10),    --definicion del campo para caracteres alfanumericos--
+    semestre NUMBER(5),     --definicion del campo para numeros --
+    edificio NVARCHAR2(5)   --definicion del campo para caracteres alfanumericos--
+);
+
+        --Procedimiento Almacenado para insertar datos de los alumnos de Industrial--
+CREATE OR REPLACE PROCEDURE painsertAlumnosIndustrial
+    (aIdI in number default 0 || null, 
+    aMatriculaI in number default  0  , 
+    aNombreI in varchar2 default 'Nombre'  , 
+    aApellidoI in varchar2 default 'Apellidos' ,
+    aGrupoI in varchar2 default 'Grupo' ,
+    aSemestreI in number default 0,
+    aEdificioI in varchar2 default '#') 
+as
+begin
+    insert into industrial values (aIdI, aMatriculaI, aNombreI, aApellidoI, aGrupoI,aSemestreI, aEdificioI);
+end;
+
+EXECUTE paInsertAlumnosIndustrial;
+EXECUTE paInsertAlumnosIndustrial (1, 0000000000, '.uoiyuk,ym', 'WRVSRBDFV','7hbvd',4,'F');
+
+SELECT * FROM industrial;
+
+--Tabla Energias Renovables TABLA 9 DE LAS CARRERAS--
+CREATE TABLE energias(
+    id NUMBER(6),
+    matricula NUMBER(12),
+    nombre NVARCHAR2(50),
+    apellido NVARCHAR2(100),
+    grupo NVARCHAR2(10),
+    semestre number(2),
+    edificio NVARCHAR2(3)
+);
+
+        --Procedimiento Almacenado para insertar datos de los alumnos de Energias Renovables--
+CREATE OR REPLACE PROCEDURE paInsertAlumnosEnergias
+    (aIdE in number default 0 || null, 
+    aMatriculaE in number default  0  , 
+    aNombreE in varchar2 default 'Nombre'  , 
+    aApellidoE in varchar2 default 'Apellidos' ,
+    aGrupoE in varchar2 default 'Grupo' ,
+    aSemestreE in number default 0,
+    aEdificioE in varchar2 default '#') 
+as
+begin
+    insert into energias values (aIdE, aMatriculaE, aNombreE, aApellidoE, aGrupoE,aSemestreE, aEdificioE);
+end;
+
+EXECUTE paInsertAlumnosEnergias;
+EXECUTE paInsertAlumnosEnergias (1, 0000000000, ',umytnbwra', 'wrb wrb','4qafv',6,'I');
+
+SELECT * FROM energias;
+
+            --Intento de JOINS--
+SELECT  s.matricula, s.nombre, s.apellido, s.grupo, s.semestre,
+        g.matricula, g.nombre, g.apellido, g.grupo, g.semestre,
+        c.matricula, c.nombre, c.apellido, c.grupo, c.semestre,
+        a.matricula, a.nombre, a.apellido, a.grupo, a.semestre,
+        n.matricula, n.nombre, n.apellido, n.grupo, n.semestre,
+        z.matricula, z.nombre, z.apellido, z.grupo, z.semestre,
+        t.matricula, t.nombre, t.apellido, t.grupo, t.semestre,
+        e.matricula, e.nombre, e.apellido, e.grupo, e.semestre,
+        i.matricula, i.nombre, i.apellido, i.grupo, i.semestre
+from sistemas s inner join contaduria c on s.semestre = c.semestre 
+                inner join gastronomia g on s.semestre = g.semestre
+                inner join ambiental a on s.semestre = a.semestre
+                inner join administracion n on s.semestre = n.semestre
+                inner join automotriz z on s.semestre = z.semestre
+                inner join tics t on s.semestre = t.semestre
+                inner join energias g on s.semestre = e.semestre
+                inner join industrial i on s.semestre = i.semestre;
+                
+SELECT s.matricula, s.nombre, s.apellido , s.grupo, s.semestre,
+        g.matricula, g.nombre, g.apellido, g.grupo, g.semestre,
+        c.matricula, c.nombre, c.apellido , c.grupo, c.semestre 
+from sistemas s inner join contaduria c on s.semestre = c.semestre 
+                inner join gastronomia g on c.semestre = g.semestre where s.semestre = 6 and g.semestre = 6 and c.semestre = 6;
+
+Select matricula, nombre, apellidoPaterno,apellidoMaterno, grupo, carrera from alumnosTesoem where semestre = 6;
+
+Select matricula, nombre, grupo from sistemas s, gastronomia g,contaduria c where s.semestre = 6 or g.semestre =6 or c.semestre = 6;
+
+--Ejercicio 3 FUNCION DE LA BECA--
+
+CREATE OR REPLACE FUNCTION beca(promedio NUMBER) 
+    RETURN NVARCHAR2
+    IS resultado NVARCHAR2(50);
+        calificacion NUMBER(5);
+    BEGIN
+        calificacion:=promedio;
+        resultado:='';
+    IF calificacion>=85 THEN
+        resultado:='Merecedor a beca';
+    ELSE
+        resultado:='No merecedor a beca';
+    END IF;
+    RETURN resultado;
+END beca;  
+
+select matricula, nombre, promedio, beca(promedio) from alumnostesoem;
